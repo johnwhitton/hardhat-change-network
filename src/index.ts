@@ -6,7 +6,6 @@ import { EthereumProvider } from "hardhat/types/provider";
 // extensions in your npm package's types file.
 import "./type-extensions";
 
-
 extendEnvironment((hre) => {
   // We add a field to the Hardhat Runtime Environment here.
   // We use lazyObject to avoid initializing things until they are actually
@@ -19,7 +18,7 @@ extendEnvironment((hre) => {
         name,
         this.config.networks[name],
         this.config.paths,
-        this.artifacts,
+        this.artifacts
       );
     }
     return providers[name];
@@ -39,8 +38,12 @@ extendEnvironment((hre) => {
     this.network.provider = this.getProvider(newNetwork);
 
     if ((this as any).ethers) {
-      const { EthersProviderWrapper } = require("@nomicfoundation/hardhat-ethers/internal/ethers-provider-wrapper");
-      (this as any).ethers.provider = new EthersProviderWrapper(this.network.provider);
+      const {
+        EthersProviderWrapper,
+      } = require("@nomiclabs/hardhat-ethers/internal/ethers-provider-wrapper");
+      (this as any).ethers.provider = new EthersProviderWrapper(
+        this.network.provider
+      );
     }
   };
 });
